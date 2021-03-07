@@ -1,0 +1,123 @@
+{
+    "name": "esco",
+    "displayName": "ESLint TypeScript Class Organizer",
+    "description": "Groups and orders class members according to your eslint configuration",
+    "version": "0.1.0",
+    "publisher": "joshcomley",
+    "author": {
+        "name": "joshcomley",
+        "url": "https://github.com/joshcomley/"
+    },
+    "icon": "doc/logo.png",
+    "galleryBanner": {
+        "color": "#4c725d",
+        "theme": "dark"
+    },
+    "bugs": {
+        "url": "https://github.com/joshcomley/esco/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/joshcomley/esco.git"
+    },
+    "homepage": "https://github.com/joshcomley/esco",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "license": "MIT",
+    "categories": [
+        "Formatters"
+    ],
+    "keywords": [
+        "TypeScript",
+        "organize",
+        "order",
+        "class",
+        "regions"
+    ],
+    "activationEvents": [
+        "onLanguage:typescript",
+        "onCommand:esco.organize",
+        "onCommand:esco.organizeAll"
+    ],
+    "contributes": {
+        "configuration": {
+            "title": "ESLint TypeScript Class Organizer configuration",
+            "properties": {
+                "esco.addPublicModifierIfMissing": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Adds a public access modifier if missing."
+                },
+                "esco.organizeOnSave": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When true file will get organized automatically whenever saved."
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "esco.organize",
+                "title": "Organize Current File",
+                "category": "ESCO",
+                "when": "editorTextFocus && editorLangId == typescript"
+            },
+            {
+                "command": "esco.organizeAll",
+                "title": "Organize All Files",
+                "category": "ESCO"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "esco.organize",
+                    "group": "1_modification",
+                    "when": "editorTextFocus && editorLangId == typescript"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "esco.organize",
+                "key": "ctrl+shift+o",
+                "mac": "cmd+shift+o",
+                "when": "editorTextFocus && editorLangId == typescript"
+            }
+        ],
+        "languages": [
+            {
+                "id": "typescript",
+                "extensions": [
+                    ".ts"
+                ]
+            }
+        ]
+    },
+    "main": "./out/extension",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/eslint": "^7.2.7",
+        "@types/mocha": "7.0.2",
+        "@types/node": "13.13.5",
+        "eslint": "7.21.0",
+        "vscode": "1.1.37"
+    },
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.16.1",
+        "@typescript-eslint/parser": "^4.16.1",
+        "eslint": "^7.21.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsdoc": "^32.2.0",
+        "eslint-plugin-prefer-arrow": "^1.2.3",
+        "eslint-plugin-react": "^7.22.0",
+        "typescript": "4.2.3"
+    }
+}
