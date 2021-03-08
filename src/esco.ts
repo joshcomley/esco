@@ -612,8 +612,14 @@ export class Esco {
                                 node instanceof PropertyNode ||
                                 node instanceof GetterNode ||
                                 node instanceof SetterNode)) {
-                            const match = new RegExp("(.*?)" + node.name).exec(code);
-                            let left = (match == null || match.length < 1 ? "" : match[1]).trim();
+                            let left = "";
+                            const prop = node.node as ts.PropertyDeclaration;
+                            if (prop.name) {
+                                left = sourceCode.substr(node.start, prop.name.pos - node.start);
+                            } else {
+                                const match = new RegExp("(.*?)" + node.name).exec(code);
+                                left = (match == null || match.length < 1 ? "" : match[1]).trim();
+                            }
                             code = code.substr(left.length);
                             const otherModifiers = ["async", "abstract", "readonly", "static", "get", "set"];
                             const foundModifiers = new Array<string>();
