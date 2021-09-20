@@ -2,7 +2,7 @@
     "name": "esco",
     "displayName": "ESLint TypeScript Class Organizer",
     "description": "Groups and orders class members according to your eslint configuration",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "publisher": "joshcomley",
     "author": {
         "name": "joshcomley",
@@ -104,20 +104,20 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "@types/eslint": "^7.2.7",
-        "@types/mocha": "7.0.2",
-        "@types/node": "13.13.5",
+        "@types/eslint": "^7.28.0",
+        "@types/mocha": "9.0.0",
+        "@types/node": "16.9.4",
         "eslint": "7.21.0",
         "vscode": "1.1.37"
     },
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.16.1",
-        "@typescript-eslint/parser": "^4.16.1",
-        "eslint": "^7.21.0",
-        "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-jsdoc": "^32.2.0",
+        "@typescript-eslint/eslint-plugin": "^4.31.1",
+        "@typescript-eslint/parser": "^4.31.1",
+        "eslint": "^7.32.0",
+        "eslint-plugin-import": "^2.24.2",
+        "eslint-plugin-jsdoc": "^36.1.0",
         "eslint-plugin-prefer-arrow": "^1.2.3",
-        "eslint-plugin-react": "^7.22.0",
-        "typescript": "4.2.3"
+        "eslint-plugin-react": "^7.25.3",
+        "typescript": "4.4.3"
     }
 }

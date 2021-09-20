@@ -1,3 +1,4 @@
+import * as vscode from "vscode";
 import { ESLint } from "eslint";
 import * as ts from "typescript";
 import { Configuration } from "./configuration";
@@ -25,20 +26,26 @@ export class Esco {
             useEslintrc: true
         });
         return new Promise<string>(resolver => {
-            cli.isPathIgnored(fileName).then(isIgnored => {
-                if (!isIgnored) {
-                    cli.calculateConfigForFile(fileName).then(eslintConfig => {
-                        const memberOrdering = this.resolveMemberOrdering(eslintConfig);
-                        if (!memberOrdering) {
-                            resolver(sourceCode);
-                        } else {
-                            resolver(this.organizeFile(sourceCode, fileName, this.mapMemberOrdering(memberOrdering)));
-                        }
-                    });
-                } else {
-                    resolver(sourceCode);
-                }
-            });
+            try {
+                cli.isPathIgnored(fileName).then(isIgnored => {
+                    if (!isIgnored) {
+                        cli.calculateConfigForFile(fileName).then(eslintConfig => {
+                            const memberOrdering = this.resolveMemberOrdering(eslintConfig);
+                            if (!memberOrdering) {
+                                resolver(sourceCode);
+                            } else {
+                                resolver(this.organizeFile(sourceCode, fileName, this.mapMemberOrdering(memberOrdering)));
+                            }
+                        });
+                    } else {
+                        resolver(sourceCode);
+                    }
+                }, error => {
+                    vscode.window.showInformationMessage(`Error with ESLint: ${error.message}`);
+                });
+            } catch (error) {
+                vscode.window.showInformationMessage(`Error with ESLint: ${(error as any).code}`);
+            }
         });
     }
 
@@ -621,7 +628,7 @@ export class Esco {
                                 left = (match == null || match.length < 1 ? "" : match[1]).trim();
                             }
                             code = code.substr(left.length);
-                            const otherModifiers = ["async", "abstract", "readonly", "static", "get", "set"];
+                            const otherModifiers = ["async", "abstract", "override", "readonly", "static", "get", "set"];
                             const foundModifiers = new Array<string>();
                             while (true) {
                                 let canExit = true;
